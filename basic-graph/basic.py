@@ -22,6 +22,27 @@ def getConnectedComponent(graph:np.ndarray) -> int:
                     stack.append(neighbor)
     return cnt_component
 
+def JarnikMST(graph:np.ndarray) -> np.ndarray:
+    """
+    Jarnik's algorithm
+    """
+    # get connected component
+    cnt_component = getConnectedComponent(graph)
+    # get the minimum spanning tree
+    mst = np.zeros_like(graph)
+    for i in range(cnt_component):
+        # get the minimum spanning tree of each component
+        mst_i = np.zeros_like(graph)
+        for j in range(graph.shape[0]):
+            if j == i:
+                continue
+            # get the minimum spanning tree of each component
+            mst_i[j] = graph[j] - graph[i]
+        # get the minimum spanning tree of each component
+        mst_i = mst_i.argmin(axis=1)
+        # get the minimum spanning tree of each component
+        mst[i] = mst_i
+    return mst
 
 if __name__ == "__main__":
 
