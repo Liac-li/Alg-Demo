@@ -38,12 +38,15 @@ def getMatrixFromFile(target_range) -> np.ndarray:
             if mId in target_range:
                 read_matrix = True
                 infos.append(info)
+        elif line.startswith('#'):
+            continue
         elif line[0].isdigit():
             if read_matrix:
                 tmp.append([int(i) for i in line.strip().split()])
-        else:         
+        elif line.strip() == '':         
             read_matrix = False
-            res.append(np.array(tmp))
+            if len(tmp) > 0:
+                res.append(np.array(tmp))
             tmp = []
 
     if len(tmp) > 0:
