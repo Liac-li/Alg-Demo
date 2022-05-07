@@ -31,6 +31,22 @@ def getConnectedComponent(graph: np.ndarray) -> int:
                     stack.append(neighbor)
     return cnt_component
 
+def isTree(graph: np.ndarray) -> bool:
+
+    assert graph.shape[0] == graph.shape[1]
+    
+    tmp = np.tril(graph, k=-1)
+    edges = []
+    for u in range(graph.shape[0]):
+        for v in np.nonzero(tmp[u])[0]:
+            edges.append((u, v, tmp[u, v]))
+
+    if len(edges) != (graph.shape[0] - 1):
+        return False
+    if getConnectedComponent(graph) != 1:
+        return False
+    return True
+
 
 def JarnikMST(graph: np.ndarray) -> np.ndarray:
     """
@@ -83,8 +99,8 @@ def KruskalMST(graph: np.ndarray) -> np.ndarray:
         """
 
         def __init__(self, n):
-            self.parent = np.arange(n) # disrect parent of item x 
-            self.rank = np.zeros(n) # referenced num of disjoint set
+            self.parent = np.arange(n)  # disrect parent of item x
+            self.rank = np.zeros(n)  # referenced num of disjoint set
 
         def find(self, x):
             if self.parent[x] == x:
@@ -145,10 +161,12 @@ if __name__ == "__main__":
     assert getConnectedComponent(xs[0]) >= 1
     mst = JarnikMST(xs[0])
     assert getConnectedComponent(mst) == 1
+    assert isTree(mst) is True, "Jarnik's mst is not a tree"
     print(set_color(f"Primmst: \n{mst}", COLOR.BLUE), infos[0])
 
     xs, infos = getMatrixFromFile([2])
     assert getConnectedComponent(xs[0]) >= 1
     mst = KruskalMST(xs[0])
-    assert getConnectedComponent(mst) == 1, set_color(f"mst: \n{mst}", COLOR.BLUE)
+    assert getConnectedComponent(mst) == 1, set_color(f"mst: \n{mst}",
+                                                      COLOR.BLUE)
     print(set_color(f"Kruskalmst: \n{mst}", COLOR.BLUE), infos[0])
