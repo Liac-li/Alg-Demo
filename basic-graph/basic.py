@@ -32,7 +32,6 @@ def getConnectedComponent(graph: np.ndarray) -> int:
     return cnt_component
 
 def isTree(graph: np.ndarray) -> bool:
-
     assert graph.shape[0] == graph.shape[1]
     
     tmp = np.tril(graph, k=-1)
@@ -169,4 +168,5 @@ if __name__ == "__main__":
     mst = KruskalMST(xs[0])
     assert getConnectedComponent(mst) == 1, set_color(f"mst: \n{mst}",
                                                       COLOR.BLUE)
+    assert isTree(mst) is True, "Kruskal's mst is not a tree"
     print(set_color(f"Kruskalmst: \n{mst}", COLOR.BLUE), infos[0])
