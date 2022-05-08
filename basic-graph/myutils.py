@@ -15,16 +15,17 @@ def genUndirectedAdjMatrix(range, size: tuple) -> np.ndarray:
     m = np.tril(a) + np.tril(a, -1).T
     return m
 
+
 def getMatrixFromFile(target_range) -> np.ndarray:
-    
-    def getInfo(s:str):
+
+    def getInfo(s: str):
         tmp = s.strip().split(':')
-        mId = int(tmp[1]) 
+        mId = int(tmp[1])
         _, info = tmp[2].split('#')
         return mId, info
 
     global FILE_PATH
-    
+
     lines = open(FILE_PATH).readlines()
     assert len(lines) > 0
 
@@ -43,7 +44,7 @@ def getMatrixFromFile(target_range) -> np.ndarray:
         elif line[0].isdigit():
             if read_matrix:
                 tmp.append([int(i) for i in line.strip().split()])
-        elif line.strip() == '':         
+        elif line.strip() == '':
             read_matrix = False
             if len(tmp) > 0:
                 res.append(np.array(tmp))
@@ -53,6 +54,3 @@ def getMatrixFromFile(target_range) -> np.ndarray:
         res.append(np.array(tmp))
 
     return res, infos
-        
-        
-

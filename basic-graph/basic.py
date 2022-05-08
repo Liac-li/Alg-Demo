@@ -31,9 +31,10 @@ def getConnectedComponent(graph: np.ndarray) -> int:
                     stack.append(neighbor)
     return cnt_component
 
+
 def isTree(graph: np.ndarray) -> bool:
     assert graph.shape[0] == graph.shape[1]
-    
+
     tmp = np.tril(graph, k=-1)
     edges = []
     for u in range(graph.shape[0]):
