@@ -20,7 +20,6 @@ def QuickSort(arr: list[int], left: int, right: int) -> list[int]:
 
     if left < right:
         pi = partition(arr, left, right)
-
         QuickSort(arr, left, pi - 1)
         QuickSort(arr, pi + 1, right)
 
