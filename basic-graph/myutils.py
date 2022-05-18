@@ -54,3 +54,11 @@ def getMatrixFromFile(target_range) -> np.ndarray:
         res.append(np.array(tmp))
 
     return res, infos
+
+def shuffleGraph(graph:np.ndarray) -> np.ndarray:
+    # TODO
+    ...
+
+def BeautiPrintSSSP(src:int, dist:list, pred:list):
+    # TODO
+    ...

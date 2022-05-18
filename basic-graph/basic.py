@@ -150,6 +150,34 @@ def KruskalMST(graph: np.ndarray) -> np.ndarray:
     return mst
 
 
+def TopologicalSort(graph: np.ndarray) -> list:
+    """
+        The return order of DFS in graph is a reversed topological order
+        Search from source is hard, but track back is easy(key points)
+        ! Need proof TODO
+    """
+    V = graph.shape[0]
+
+    visited = [False] * V
+    stack = []
+    
+    def topoSortUtil(v, visited, stack):
+        visited[v] = True
+
+        for u in np.nonzero(graph[v])[0]:
+            if not visited[u]: # ! Important
+                topoSortUtil(u, visited, stack)
+        stack.append(v)
+        # print(stack)
+
+    for cur in range(V): # DFS
+        if not visited[cur]:
+            topoSortUtil(cur, visited, stack)
+            
+    return stack[::-1]
+    
+    
+
 if __name__ == "__main__":
 
     xs, infos = getMatrixFromFile([1])
@@ -171,3 +199,7 @@ if __name__ == "__main__":
                                                       COLOR.BLUE)
     assert isTree(mst) is True, "Kruskal's mst is not a tree"
     print(set_color(f"Kruskalmst: \n{mst}", COLOR.BLUE), infos[0])
+    
+    xs, infos = getMatrixFromFile([3])
+    topoOrder = TopologicalSort(xs[0])
+    print(set_color(f"topoOrder: {topoOrder}", COLOR.BLUE), infos[0])

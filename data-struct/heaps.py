@@ -64,9 +64,8 @@ class MyPriorityQueue:
 
         while idx > 0 and self.arr[idx] > self.arr[
             (idx - 1) // 2]:  # remain the max heap to the root
-            self.arr[idx], self.arr[(idx - 1) //
-                                    2] = self.arr[(idx - 1) //
-                                                  2], self.arr[idx]
+            self.arr[idx], self.arr[(idx - 1) // 2] = \
+            self.arr[(idx - 1) // 2], self.arr[idx] # swap
             idx = (idx - 1) // 2
 
     def insert(self, new_val: int):
@@ -85,7 +84,7 @@ class MyPriorityQueue:
         self.arr = self.arr[:-1]
         self.build_heap()
 
-    def show_tree(self, total_width=60, fill=' '):
+    def show_tree(self, total_width=80, fill=' '):
         """
         Pretty-print a tree.
         total_width depends on your input size
