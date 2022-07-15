@@ -30,8 +30,8 @@ def PushDagSSSP(graph: np.ndarray, src: int) -> Tuple[list, list]:
     for u in topoOrder[start:]:
         for v in np.nonzero(graph[u])[0]:
             if dist[u] == MAX:
-                # Some nodes may not reachable with each other may lead to 
-                # various topological order, which leads to wrong accessing order
+                # Points unreachable with each other can lead to different Topological order
+                # making access nodes in the wrong order
                 continue  
             if dist[v] > dist[u] + graph[u, v]:
                 dist[v] = dist[u] + graph[u, v]
